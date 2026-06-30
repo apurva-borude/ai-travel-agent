@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Travel Reimbursement Agent</title>
+<style>
+  /* keeping the css light on purpose */
+  /* force a light background so it stays readable even if the OS/browser is in dark mode */
+  html { color-scheme: light; }
+  body { font-family: system-ui, sans-serif; max-width: 760px; margin: 30px auto; padding: 0 14px; color: #222; background: #fff; }
+  h1 { font-size: 20px; }
+  textarea { width: 100%; height: 230px; font-family: monospace; font-size: 13px; }
+  select, button { padding: 6px 10px; font-size: 14px; }
+  button { cursor: pointer; }
+  .row { margin: 10px 0; }
+  pre { background: #f4f4f4; padding: 12px; overflow-x: auto; font-size: 13px; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; color: #fff; font-size: 13px; }
+  .Approve { background: #2e7d32; }
+  .Partially { background: #f9a825; color:#222; }
+  .Reject { background: #c62828; }
+  .Manual { background: #6a1b9a; }
+  .muted { color: #777; font-size: 12px; }
+</style>
+</head>
+<body>
+  <h1>Travel Reimbursement Approval Agent</h1>
+  <p class="muted">Pick a sample claim (or edit the JSON) and evaluate it.</p>
+
+  <div class="row">
+    <select id="samples"></select>
+    <button onclick="evaluate()">Evaluate</button>
+    <span id="mode" class="muted"></span>
+  </div>
+
+  <div class="row">
+    <textarea id="claim" spellcheck="false"></textarea>
+  </div>
+
+  <div id="result"></div>
+
+<script>
+let SAMPLES = {};
+
+async function loadSamples() {
+  const res = await fetch('/api/samples');
+  SAMPLES = await res.json();
+  const sel = document.getElementById('samples');
+  Object.keys(SAMPLES).forEach(name => {
+    const opt = document.createElement('option');
+    opt.value = name;
+    opt.textContent = name;
+    sel.appendChild(opt);
+  });
+  sel.onchange = showSample;
+  showSample();
+}
+
+function showSample() {
+  const name = document.getElementById('samples').value;
+  document.getElementById('claim').value = JSON.stringify(SAMPLES[name], null, 2);
+}
+
+async function evaluate() {
+  const box = document.getElementById('result');
+  box.innerHTML = '<p class="muted">thinking...</p>';
+  let claim;
+  try {
+    claim = JSON.parse(document.getElementById('claim').value);
+  } catch (e) {
+    box.innerHTML = '<p style="color:red">Invalid JSON: ' + e.message + '</p>';
+    return;
+  }
+
+  const res = await fetch('/api/evaluate', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(claim)
+  });
+  const data = await res.json();
+  render(data);
+}
+
+function render(d) {
+  if (d.error) {
+    document.getElementById('result').innerHTML =
+      '<p style="color:red">' + d.error + '</p>';
+    return;
+  }
+  document.getElementById('mode').textContent = '(' + (d._mode || '?') + ' mode)';
+  // first word of the decision drives the badge colour
+  // ('Partially Approve' -> 'Partially', kinda hacky but the css matches it)
+  const cls = (d.decision || '').split(' ')[0];
+  const missing = (d.missing_documents || []).join(', ') || 'none';
+  const refs = (d.policy_references || []).join(', ') || 'none';
+
+  document.getElementById('result').innerHTML =
+    '<p><span class="badge ' + cls + '">' + d.decision + '</span> ' +
+    '&nbsp; confidence: ' + d.confidence + '</p>' +
+    '<p>Approved: <b>$' + d.approved_amount + '</b> &nbsp; ' +
+    'Deducted: <b>$' + d.deducted_amount + '</b> (' + d.currency + ')</p>' +
+    '<p>Missing docs: ' + missing + '</p>' +
+    '<p>Policy refs: ' + refs + '</p>' +
+    '<p>' + (d.explanation || '') + '</p>' +
+    '<details><summary class="muted">raw JSON</summary><pre>' +
+    JSON.stringify(d, null, 2) + '</pre></details>';
+}
+
+loadSamples();
+</script>
+</body>
+</html>

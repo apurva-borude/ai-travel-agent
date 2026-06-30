@@ -1,0 +1,8 @@
+# Cerebras inference SDK (free tier - https://cloud.cerebras.ai)
+cerebras-cloud-sdk>=1.0.0
+
+# we only use this to load the .env file, nothing fancy
+python-dotenv>=1.0.0
+
+# tiny web server for the demo frontend
+flask>=3.0.0

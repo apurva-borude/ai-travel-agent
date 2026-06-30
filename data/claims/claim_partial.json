@@ -1,0 +1,35 @@
+{
+  "claim_id": "CLM-1002",
+  "employee_id": "E-118",
+  "employee_name": "Priya Nair",
+  "purpose": "Conference - DevWeek",
+  "destination": "Austin, TX",
+  "trip_start": "2026-05-20",
+  "trip_end": "2026-05-22",
+  "submitted_on": "2026-05-28",
+  "currency": "USD",
+  "line_items": [
+    {
+      "category": "lodging",
+      "amount": 260,
+      "date": "2026-05-20",
+      "nights": 1,
+      "vendor": "Downtown Marriott",
+      "receipt_attached": true
+    },
+    {
+      "category": "meals",
+      "amount": 95,
+      "date": "2026-05-21",
+      "vendor": "Steakhouse",
+      "receipt_attached": true
+    },
+    {
+      "category": "minibar",
+      "amount": 18,
+      "date": "2026-05-21",
+      "vendor": "Hotel",
+      "receipt_attached": false
+    }
+  ]
+}

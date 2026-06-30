@@ -1,0 +1,28 @@
+{
+  "claim_id": "CLM-1005",
+  "employee_id": "E-204",
+  "employee_name": "Jordan Lee",
+  "purpose": "Vendor meeting",
+  "destination": "Denver, CO",
+  "trip_start": "2026-06-01",
+  "trip_end": "2026-06-02",
+  "submitted_on": "2026-06-04",
+  "currency": "USD",
+  "line_items": [
+    {
+      "category": "lodging",
+      "amount": 150,
+      "date": "2026-06-01",
+      "nights": 1,
+      "vendor": "Holiday Inn",
+      "receipt_attached": false
+    },
+    {
+      "category": "ground_transport",
+      "amount": 40,
+      "date": "2026-06-01",
+      "vendor": "Lyft",
+      "receipt_attached": true
+    }
+  ]
+}

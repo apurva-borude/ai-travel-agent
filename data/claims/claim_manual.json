@@ -1,0 +1,36 @@
+{
+  "claim_id": "CLM-1004",
+  "employee_id": "E-091",
+  "employee_name": "Dana Wu",
+  "purpose": "APAC partner roadshow (2 weeks)",
+  "destination": "Singapore",
+  "trip_start": "2026-03-01",
+  "trip_end": "2026-03-14",
+  "submitted_on": "2026-03-20",
+  "currency": "USD",
+  "line_items": [
+    {
+      "category": "airfare",
+      "amount": 3200,
+      "date": "2026-03-01",
+      "vendor": "Singapore Airlines",
+      "cabin": "business",
+      "receipt_attached": true
+    },
+    {
+      "category": "lodging",
+      "amount": 2400,
+      "date": "2026-03-01",
+      "nights": 13,
+      "vendor": "Marina Bay",
+      "receipt_attached": true
+    },
+    {
+      "category": "meals",
+      "amount": 540,
+      "date": "2026-03-05",
+      "vendor": "various",
+      "receipt_attached": false
+    }
+  ]
+}

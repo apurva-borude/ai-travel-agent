@@ -1,0 +1,35 @@
+{
+  "claim_id": "CLM-1001",
+  "employee_id": "E-204",
+  "employee_name": "Jordan Lee",
+  "purpose": "Client onsite - Q2 review",
+  "destination": "Chicago, IL",
+  "trip_start": "2026-06-10",
+  "trip_end": "2026-06-12",
+  "submitted_on": "2026-06-15",
+  "currency": "USD",
+  "line_items": [
+    {
+      "category": "lodging",
+      "amount": 180,
+      "date": "2026-06-10",
+      "nights": 1,
+      "vendor": "Hampton Inn",
+      "receipt_attached": true
+    },
+    {
+      "category": "meals",
+      "amount": 48,
+      "date": "2026-06-11",
+      "vendor": "Local Diner",
+      "receipt_attached": true
+    },
+    {
+      "category": "ground_transport",
+      "amount": 32,
+      "date": "2026-06-10",
+      "vendor": "Uber",
+      "receipt_attached": true
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "currency": "USD",
+  "submission_window_days": 30,
+  "receipt_required_above": 25,
+  "manual_review_total_above": 5000,
+  "eligible_categories": [
+    "lodging",
+    "meals",
+    "airfare",
+    "ground_transport",
+    "misc"
+  ],
+  "categories": {
+    "lodging": {
+      "limit_type": "per_night",
+      "limit": 200,
+      "receipt_always": true
+    },
+    "meals": {
+      "limit_type": "per_day",
+      "limit": 75,
+      "receipt_always": false
+    },
+    "airfare": {
+      "limit_type": "per_item",
+      "limit": 1500,
+      "receipt_always": true,
+      "allowed_cabin": "economy"
+    },
+    "ground_transport": {
+      "limit_type": "per_day",
+      "limit": 50,
+      "receipt_always": false
+    },
+    "misc": {
+      "limit_type": "per_claim",
+      "limit": 100,
+      "receipt_always": false
+    }
+  }
+}
